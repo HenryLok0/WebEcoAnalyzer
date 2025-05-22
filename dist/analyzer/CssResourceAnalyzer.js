@@ -106,6 +106,49 @@ class CssResourceAnalyzer {
         return analysisResults;
     }
     /**
+     * Calculate a score (max 100) for the website based on CSS resource analysis
+     * @param analysisResults The array of ResourceAnalysisResult
+     * @returns number (0~100)
+     */
+    calculateScore(analysisResults) {
+        let score = 100;
+        for (const result of analysisResults) {
+            // Inline styles penalty
+            if (result.category === 'inline') {
+                if (result.count > 2)
+                    score -= 5;
+                if (result.count > 10)
+                    score -= 10;
+                if (result.count > 20)
+                    score -= 15;
+            }
+            // External stylesheets penalty
+            if (result.category === 'external') {
+                if (result.count > 4)
+                    score -= 10;
+                if (result.count > 8)
+                    score -= 15;
+            }
+            // Third-party stylesheets penalty
+            if (result.category === 'third-party') {
+                if (result.count > 2)
+                    score -= 5;
+                if (result.count > 5)
+                    score -= 10;
+            }
+            // Animation penalty
+            if (result.recommendation && result.recommendation.includes('animations')) {
+                score -= 5;
+            }
+        }
+        // Ensure score is between 0 and 100
+        if (score < 0)
+            score = 0;
+        if (score > 100)
+            score = 100;
+        return score;
+    }
+    /**
      * Calculate the total size (bytes) of CSS strings
      */
     calculateTotalSize(styles) {

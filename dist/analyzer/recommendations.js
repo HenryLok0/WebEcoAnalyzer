@@ -22,5 +22,27 @@ class Recommendations {
         // ...
         return recommendations;
     }
+    /**
+     * Calculate a score (max 100) for the website based on recommendations.
+     * More high/medium impact recommendations result in a lower score.
+     * @param recommendations The array of Recommendation
+     * @returns number (0~100)
+     */
+    calculateScore(recommendations) {
+        let score = 100;
+        for (const rec of recommendations) {
+            if (rec.impact === "high")
+                score -= 15;
+            if (rec.impact === "medium")
+                score -= 7;
+            if (rec.impact === "low")
+                score -= 3;
+        }
+        if (score < 0)
+            score = 0;
+        if (score > 100)
+            score = 100;
+        return score;
+    }
 }
 exports.Recommendations = Recommendations;

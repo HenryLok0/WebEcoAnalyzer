@@ -100,6 +100,49 @@ export class ImageResourceAnalyzer {
     }
     
     /**
+     * Calculate a score (max 100) for the website based on image resource analysis
+     * @param analysisResults The array of ResourceAnalysisResult
+     * @returns number (0~100)
+     */
+    public calculateScore(analysisResults: ResourceAnalysisResult[]): number {
+        let score = 100;
+
+        for (const result of analysisResults) {
+            // Penalty for too many images
+            if (result.category === 'external' && result.resourceType === 'image') {
+                if (result.count > 10) score -= 10;
+                if (result.count > 20) score -= 10;
+            }
+            // Penalty for unoptimized images (missing width/height)
+            if (
+                result.recommendation &&
+                result.recommendation.includes('width and height attributes')
+            ) {
+                score -= 10;
+            }
+            // Penalty for large images not using modern formats
+            if (
+                result.recommendation &&
+                result.recommendation.includes('WebP or AVIF')
+            ) {
+                score -= 10;
+            }
+            // Penalty for too many background images
+            if (
+                result.recommendation &&
+                result.recommendation.includes('background images')
+            ) {
+                score -= 5;
+            }
+        }
+
+        // Ensure score is between 0 and 100
+        if (score < 0) score = 0;
+        if (score > 100) score = 100;
+        return score;
+    }
+
+    /**
      * Determine the impact level based on count
      */
     private determineImpact(count: number): 'low' | 'medium' | 'high' {

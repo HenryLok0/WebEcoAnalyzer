@@ -52,4 +52,29 @@ export class StaticAnalyzer {
 
         return energyInefficientPatterns;
     }
+
+    /**
+     * Calculate a score (max 100) for the code based on detected inefficient patterns.
+     * More detected patterns result in a lower score.
+     * @param patterns The array of detected inefficient patterns
+     * @returns number (0~100)
+     */
+    public calculateScore(patterns: string[]): number {
+        let score = 100;
+
+        for (const pattern of patterns) {
+            if (pattern.includes('setInterval')) score -= 10;
+            if (pattern.includes('setTimeout')) score -= 5;
+            if (pattern.includes('inefficient loop')) score -= 5;
+            if (pattern.includes('unoptimized images')) score -= 10;
+            if (pattern.includes('document.write')) score -= 10;
+            if (pattern.includes('inline styles')) score -= 5;
+            if (pattern.includes('CSS animations or transitions')) score -= 10;
+            if (pattern.includes('large JavaScript libraries')) score -= 10;
+        }
+
+        if (score < 0) score = 0;
+        if (score > 100) score = 100;
+        return score;
+    }
 }
