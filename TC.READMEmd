@@ -1,58 +1,58 @@
 # WebEcoAnalyzer
 
-[繁體中文說明](./TC.READMEmd)
+[English README](./README.md)
 
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-green?logo=node.js)](https://nodejs.org/)
 [![MIT License](https://img.shields.io/github/license/HenryLok0/WebEcoAnalyzer?color=blue)](https://github.com/HenryLok0/WebEcoAnalyzer/blob/main/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 [![Code Size](https://img.shields.io/github/languages/code-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 
-WebEcoAnalyzer is an open-source CLI tool for web developers to analyze and optimize websites for energy efficiency. It provides actionable audits and recommendations to help reduce the energy footprint of web applications.
+WebEcoAnalyzer 是一款開源 CLI 工具，協助網頁開發者分析並優化網站的能源效率，提供具體可行的建議，幫助降低網頁應用的能源足跡。
 
 ---
 
-## Features
+## 特色功能
 
-- **Static Code Analysis**  
-  Detects energy-inefficient patterns in website source code, such as long-duration timers, inline styles, and large JavaScript libraries. Offers insights for code optimization.
+- **靜態程式碼分析**  
+  偵測網站原始碼中不節能的模式，如長時間計時器、inline style、大型 JavaScript 函式庫，並提供優化建議。
 
-- **Resource Analysis**  
-  Analyzes JavaScript, CSS, and image resources. Identifies inline scripts/styles and unoptimized images. Recommends bundling, compression, and modern formats.
+- **資源分析**  
+  分析 JavaScript、CSS、圖片等資源。辨識 inline script/style 及未最佳化圖片，建議合併、壓縮、使用現代格式。
 
-- **Performance Metrics Collection**  
-  Uses browser automation to gather CPU time, memory usage, network requests, JavaScript execution time, and total image size.
+- **效能指標收集**  
+  透過瀏覽器自動化收集 CPU 時間、記憶體用量、網路請求數、JavaScript 執行時間、圖片總大小等。
 
-- **Energy Consumption Estimation**  
-  Estimates energy usage in watt-hours (Wh) with a breakdown of CPU, network, and memory. Benchmarks against an average website (1.5 Wh per page load).
+- **能源消耗估算**  
+  以瓦時（Wh）估算能源消耗，並細分 CPU、網路、記憶體。與平均網站（每次載入 1.5 Wh）做基準比較。
 
-- **Actionable Recommendations**  
-  Generates prioritized recommendations with code snippets and estimated savings to improve energy efficiency and performance.
+- **具體優化建議**  
+  產生優先排序的建議，附上程式碼片段與預估節省量，協助提升能源效率與效能。
 
-- **Visualization and Reporting**  
-  Produces detailed reports with scores for static code, resources, performance, and energy. Includes ASCII bar charts and Chart.js configs for visualization.
+- **視覺化與報告**  
+  產生詳細報告，包含靜態程式碼、資源、效能、能源等分數。支援 ASCII 長條圖與 Chart.js 配置。
 
-- **CI/CD Integration**  
-  Supports automated energy efficiency checks in CI/CD pipelines. Allows setting score thresholds to enforce standards.
+- **CI/CD 整合**  
+  支援自動化能源檢查，可設定分數門檻，強制符合標準。
 
-- **Real-Time Monitoring**  
-  Offers a `--watch` mode for periodic re-analysis and historical tracking.
+- **即時監控**  
+  提供 `--watch` 模式，定時重新分析並追蹤歷史紀錄。
 
-- **Flexible Output Options**  
-  Supports JSON report generation and detailed console output. Includes validation warnings for inconsistencies.
+- **彈性輸出**  
+  支援 JSON 報告與詳細主控台輸出，並有驗證警告。
 
-- **Extensibility**  
-  Modular architecture allows integration with external APIs and community feedback.
+- **可擴充架構**  
+  模組化設計，方便整合外部 API 與社群回饋。
 
 ---
 
-## Getting Started
+## 快速開始
 
-### Prerequisites
+### 先決條件
 
-- Node.js (version 14 or higher)
-- npm (Node package manager)
+- Node.js（14 版以上）
+- npm（Node 套件管理器）
 
-### Installation
+### 安裝
 
 ```sh
 git clone https://github.com/HenryLok0/WebEcoAnalyzer
@@ -62,40 +62,40 @@ npm install
 
 ---
 
-## Command Line Usage
+## 指令列用法
 
 ```
-WebEcoAnalyzer - Website Energy Efficiency Analysis Tool
+WebEcoAnalyzer - 網站能源效率分析工具
 GitHub: https://github.com/HenryLok0/WebEcoAnalyzer
 
-Usage:
+用法:
   npm run analyze -- <url> [--json] [--log-scale] [--threshold <score>] [--watch] [--community]
   npm run analyze -- --help
 
-Flags:
-  --json         Output analysis as JSON report (webecoanalyzer-report.json)
-  --log-scale    Use logarithmic scale for ASCII bar chart
-  --threshold N  Exit with code 1 if total score < N (for CI/CD)
-  --watch        Re-analyze every 5 minutes (real-time monitoring)
-  --community    Show community tips from X (Twitter)
-  --help         Show this help message
+參數說明:
+  --json         以 JSON 產生分析報告 (webecoanalyzer-report.json)
+  --log-scale    ASCII 長條圖使用對數刻度
+  --threshold N  若總分 < N 則以 code 1 結束（CI/CD 用）
+  --watch        每 5 分鐘重新分析（即時監控）
+  --community    顯示 X（Twitter）社群建議
+  --help         顯示說明
 
-Examples:
+範例:
   npm run analyze -- https://example.com --threshold 80
   npm run analyze -- https://example.com --json --watch
   npm run analyze -- https://example.com --community
 
-Scoring and Metrics:
-- Energy consumption is estimated in Wh (CPU, Network, Memory) and benchmarked against an average website (1.5 Wh).
-- Scores are calculated for static code, JS, CSS, images, performance, and energy.
-- Recommendations are prioritized by impact (high > medium > low) and deduplicated.
-- Resource size breakdown is visualized as ASCII bar chart and Chart.js config.
-- Supports CI/CD integration and real-time monitoring.
+評分與指標:
+- 能源消耗以 Wh（CPU、網路、記憶體）估算，並與平均網站（1.5 Wh）比較。
+- 靜態程式碼、JS、CSS、圖片、效能、能源皆有分數。
+- 建議依影響力排序（高 > 中 > 低），並去重。
+- 資源大小以 ASCII 長條圖與 Chart.js 呈現。
+- 支援 CI/CD 與即時監控。
 ```
 
 ---
 
-## Example Output
+## 範例輸出
 
 ```
 Analyzing energy efficiency of https://www.wikipedia.org/...
@@ -228,15 +228,16 @@ Images     | ███████████████ 15.46 KB
 ===== Analysis Complete =====
 ```
 
-## Contributing
+## 貢獻
 
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+歡迎貢獻！請參閱 [CONTRIBUTING.md](CONTRIBUTING.md) 了解行為準則與 Pull Request 流程。
 
-## License
+## 授權
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本專案採用 MIT 授權，詳見 [LICENSE](LICENSE)。
 
-## Acknowledgments
+## 致謝
 
-- Inspired by the need for sustainable web development practices.
-- Thanks to the contributors and the open-source community for their support.
+- 靈感來自永續網頁開發的需求。
+- 感謝所有貢獻者與開源社群的支持。
+```
