@@ -120,7 +120,6 @@ Energy Consumption Score: 0/100
 4. [CSS] It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency (Impact Level: medium)
 5. [CSS] Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead. (Impact Level: medium)
 6. [IMAGE] Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG. (Impact Level: medium)
-Recommendations Score: 50/100
 
 ===== TOTAL WEBSITE SCORE: 71/100 =====
 
