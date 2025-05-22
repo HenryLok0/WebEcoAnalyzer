@@ -2,20 +2,46 @@
 
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-green?logo=node.js)](https://nodejs.org/)
 [![MIT License](https://img.shields.io/github/license/HenryLok0/WebEcoAnalyzer?color=blue)](https://github.com/HenryLok0/WebEcoAnalyzer/blob/main/LICENSE)
-
 [![Repo Size](https://img.shields.io/github/repo-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 [![Code Size](https://img.shields.io/github/languages/code-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 
-WebEcoAnalyzer is an open-source CLI tool designed to help web developers analyze and optimize their websites for energy efficiency. The tool focuses on reducing the energy footprint of web applications by providing audits and actionable recommendations.
+WebEcoAnalyzer is an open-source CLI tool for web developers to analyze and optimize websites for energy efficiency. It provides actionable audits and recommendations to help reduce the energy footprint of web applications.
+
+---
 
 ## Features
 
-- **Static Code Analysis**: Scans website code to identify known energy-inefficient patterns.
-- **Performance Metrics Collection**: Utilizes browser automation tools to collect performance metrics such as CPU time and memory usage.
-- **Energy Consumption Estimation**: Estimates energy use based on collected performance metrics.
-- **Actionable Recommendations**: Provides specific suggestions for improving energy efficiency, such as optimizing images and minimizing JavaScript.
-- **CI/CD Integration**: Integrates with CI/CD pipelines for automated energy efficiency checks.
-- **Reporting**: Generates detailed reports with scores to help developers understand impacts.
+- **Static Code Analysis**  
+  Detects energy-inefficient patterns in website source code, such as long-duration timers, inline styles, and large JavaScript libraries. Offers insights for code optimization.
+
+- **Resource Analysis**  
+  Analyzes JavaScript, CSS, and image resources. Identifies inline scripts/styles and unoptimized images. Recommends bundling, compression, and modern formats.
+
+- **Performance Metrics Collection**  
+  Uses browser automation to gather CPU time, memory usage, network requests, JavaScript execution time, and total image size.
+
+- **Energy Consumption Estimation**  
+  Estimates energy usage in watt-hours (Wh) with a breakdown of CPU, network, and memory. Benchmarks against an average website (1.5 Wh per page load).
+
+- **Actionable Recommendations**  
+  Generates prioritized recommendations with code snippets and estimated savings to improve energy efficiency and performance.
+
+- **Visualization and Reporting**  
+  Produces detailed reports with scores for static code, resources, performance, and energy. Includes ASCII bar charts and Chart.js configs for visualization.
+
+- **CI/CD Integration**  
+  Supports automated energy efficiency checks in CI/CD pipelines. Allows setting score thresholds to enforce standards.
+
+- **Real-Time Monitoring**  
+  Offers a `--watch` mode for periodic re-analysis and historical tracking.
+
+- **Flexible Output Options**  
+  Supports JSON report generation and detailed console output. Includes validation warnings for inconsistencies.
+
+- **Extensibility**  
+  Modular architecture allows integration with external APIs and community feedback.
+
+---
 
 ## Getting Started
 
@@ -26,46 +52,56 @@ WebEcoAnalyzer is an open-source CLI tool designed to help web developers analyz
 
 ### Installation
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/HenryLok0/WebEcoAnalyzer
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd WebEcoAnalyzer
-   ```
-3. Install the dependencies:
-   ```sh
-   npm install
-   ```
-
-### Usage
-
-To run the tool, use the command line interface:
-
 ```sh
-npm run analyze -- <your-website-url>
+git clone https://github.com/HenryLok0/WebEcoAnalyzer
+cd WebEcoAnalyzer
+npm install
 ```
 
-Replace `<your-website-url>` with the URL of the website you want to analyze.
+---
 
-#### Example Output
+## Command Line Usage
 
-```sh
-@HenryLok0 ➜ /workspaces/WebEcoAnalyzer (main) $ npm run analyze -- https://www.google.com/
+```
+WebEcoAnalyzer - Website Energy Efficiency Analysis Tool
+GitHub: https://github.com/HenryLok0/WebEcoAnalyzer
 
-> webecoanalyzer@1.0.0 analyze
-> npm run build && node dist/cli/index.js https://www.google.com/
+Usage:
+  npm run analyze -- <url> [--json] [--log-scale] [--threshold <score>] [--watch] [--community]
+  npm run analyze -- --help
 
-> webecoanalyzer@1.0.0 build
-> tsc
+Flags:
+  --json         Output analysis as JSON report (webecoanalyzer-report.json)
+  --log-scale    Use logarithmic scale for ASCII bar chart
+  --threshold N  Exit with code 1 if total score < N (for CI/CD)
+  --watch        Re-analyze every 5 minutes (real-time monitoring)
+  --community    Show community tips from X (Twitter)
+  --help         Show this help message
 
+Examples:
+  npm run analyze -- https://example.com --threshold 80
+  npm run analyze -- https://example.com --json --watch
+  npm run analyze -- https://example.com --community
+
+Scoring and Metrics:
+- Energy consumption is estimated in Wh (CPU, Network, Memory) and benchmarked against an average website (1.5 Wh).
+- Scores are calculated for static code, JS, CSS, images, performance, and energy.
+- Recommendations are prioritized by impact (high > medium > low) and deduplicated.
+- Resource size breakdown is visualized as ASCII bar chart and Chart.js config.
+- Supports CI/CD integration and real-time monitoring.
+```
+
+---
+
+## Example Output
+
+```
 Analyzing energy efficiency of https://www.google.com/...
 Fetching webpage content...
 Performing static code analysis...
 Analyzing JavaScript resources...
 Analyzing CSS resources...
-Analyzing Image resources...
+Analyzing image resources...
 Collecting performance metrics...
 Estimating energy consumption...
 Generating optimization recommendations...
@@ -74,54 +110,109 @@ Generating optimization recommendations...
 Website: https://www.google.com/
 ----------------------------
 
-【Static Code Analysis】
+[Static Code Analysis]
 1. Using long-duration setTimeout (may cause memory leak), time interval: 0ms
 2. Found unoptimized images (missing size attributes), found 1 instances
 3. Using inline styles (increases HTML size), found 9 instances
 Static Code Analysis Score: 80/100
 
-【JavaScript Resource Analysis】
+[JavaScript Resource Analysis]
 1. inline javascript: 6 (Impact: medium)
-   Total size: 11.52KB
+   Total size: 11.53 KB
    Recommendation: Consider combining inline scripts into a single external file to improve caching
 JavaScript Resource Score: 90/100
 
-【CSS Resource Analysis】
+[CSS Resource Analysis]
 1. inline css: 3 (Impact: medium)
-   Total size: 1.76KB
+   Total size: 1.76 KB
    Recommendation: It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency
 2. inline css: 9 (Impact: medium)
-   Total size: 0.24KB
+   Total size: 0.24 KB
    Recommendation: Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead.
 CSS Resource Score: 90/100
 
-【Image Resource Analysis】
+[Image Resource Analysis]
 1. external image: 1 (Impact: low)
 2. external image: 1 (Impact: medium)
    Recommendation: Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG.
 Image Resource Score: 90/100
 
-【Performance Metrics】
-• CPU Time: 100ms
-• Memory Usage: 47.68MB
+[Performance Metrics]
+• CPU Time: 100 ms
+• Memory Usage: 47.68 MB
 • Network Requests: 15
-• JavaScript Execution Time: 250ms
-• Image Size: 1500KB
+• JavaScript Execution Time: 250 ms
+• Image Size: 1500 KB
 Performance Score: 100/100
 
-【Energy Consumption Assessment】
-Estimated Energy Consumption Index: 10000051.50
-Energy Consumption Score: 0/100
+[Energy Consumption Assessment]
+Estimated Energy Consumption: 0.39 Wh (CPU: 0.00 Wh, Network: 0.15 Wh, Memory: 0.24 Wh)
+Energy Consumption Score: 100/100
+Compared to average website: -74.1% lower
+Note: Lower energy consumption is better. Score is based on estimated CPU, memory, and network usage.
+Scoring: 100 (<=1.5Wh), 80 (<=2Wh), 60 (<=3Wh), 40 (<=4Wh), 20 (<=5Wh), 0 (>5Wh)
 
-【Optimization Recommendations】
-1. Consider compressing images to reduce load time and energy consumption. (Impact Level: high)
-2. Minimize JavaScript execution time by reducing the number of scripts or optimizing existing code. (Impact Level: medium)
-3. [JAVASCRIPT] Consider combining inline scripts into a single external file to improve caching (Impact Level: medium)
-4. [CSS] It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency (Impact Level: medium)
-5. [CSS] Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead. (Impact Level: medium)
-6. [IMAGE] Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG. (Impact Level: medium)
+Resource Size Breakdown (KB):
+{
+  "JavaScript": 11.53,
+  "CSS": 1.99,
+  "Images": 1464.84
+}
 
-===== TOTAL WEBSITE SCORE: 71/100 =====
+Chart.js Config:
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "JavaScript",
+      "CSS",
+      "Images"
+    ],
+    "datasets": [
+      {
+        "label": "Resource Size (KB)",
+        "data": [
+          11.53,
+          1.99,
+          1464.84
+        ],
+        "backgroundColor": [
+          "#36A2EB",
+          "#FF6384",
+          "#FFCE56"
+        ]
+      }
+    ]
+  },
+  "options": {
+    "title": {
+      "display": true,
+      "text": "Resource Size Distribution"
+    },
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "title": {
+          "display": true,
+          "text": "Size (KB)"
+        }
+      }
+    }
+  }
+}
+JavaScript | ████████████████████████████████████████ 11.53 KB
+CSS        | ███████ 1.99 KB
+Images     | ██████████████████████████████████████████████████████████████████████ 1500 KB
+
+[Optimization Recommendations]
+1. Consider compressing images to reduce load time and energy consumption. (Impact: high)
+2. Minimize JavaScript execution time by reducing the number of scripts or optimizing existing code. (Impact: medium)
+3. [JAVASCRIPT] Consider combining inline scripts into a single external file to improve caching (Impact: medium)
+4. [CSS] It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency (Impact: medium)
+5. [CSS] Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead. (Impact: medium)
+6. [IMAGE] Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG. (Impact: medium)
+
+===== TOTAL WEBSITE SCORE: 92/100 =====
 
 ===== Analysis Complete =====
 ```
