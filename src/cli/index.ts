@@ -49,6 +49,12 @@ async function analyzeWebsite(targetUrl: string): Promise<void> {
         console.log("Fetching webpage content...");
         const pageContent = await fetchWebPageContent(targetUrl);
 
+        // Test if the page content is empty
+        if (!pageContent || pageContent.trim() === '') {
+            console.error('Failed to fetch webpage content. Analysis aborted.');
+            return;
+        }
+
         // Static analysis
         console.log("Performing static code analysis...");
         const codeAnalysisResults = staticAnalyzer.analyze(pageContent);
