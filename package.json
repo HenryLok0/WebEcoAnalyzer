@@ -1,16 +1,17 @@
 {
-  "name": "WebEcoAnalyzer",
+  "name": "webecoanalyzer",
   "version": "1.0.0",
   "description": "An open-source tool for analyzing and optimizing websites for energy efficiency.",
   "main": "src/cli/index.ts",
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "start": "node dist/cli/index.js"
+    "start": "node dist/cli/index.js",
+    "analyze": "npm run build && node dist/cli/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/WebEcoAnalyzer.git"
+    "url": "git+https://github.com/HenryLok0/WebEcoAnalyzer.git"
   },
   "keywords": [
     "energy-efficiency",
@@ -29,5 +30,12 @@
     "ts-jest": "^27.0.0",
     "@types/jest": "^27.0.0",
     "ts-loader": "^9.0.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "bugs": {
+    "url": "https://github.com/HenryLok0/WebEcoAnalyzer/issues"
+  },
+  "homepage": "https://github.com/HenryLok0/WebEcoAnalyzer#readme"
 }
