@@ -224,6 +224,7 @@ Images     | ███████████████ 15.46 KB
 8. [CSS] Consider using modern CSS features like flexbox and grid for layout to reduce reliance on heavy frameworks. (Impact: low)
 
 ===== TOTAL WEBSITE SCORE: 90/100 =====
+[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒]
 
 ===== Analysis Complete =====
 ```

@@ -242,8 +242,11 @@ function analyzeWebsite(targetUrl, exportJson = false, useLogScale = false, comm
                     tips.forEach((tip, idx) => console.log(`${idx + 1}. ${tip}`));
                 }
             }
-            // Total score
+            const barLength = 40;
+            const filledLength = Math.round((totalScore / 100) * barLength);
+            const bar = '▓'.repeat(filledLength) + '▒'.repeat(barLength - filledLength);
             console.log(`\n===== TOTAL WEBSITE SCORE: ${totalScore}/100 =====`);
+            console.log(`[${bar}]`);
             console.log('\n===== Analysis Complete =====');
             // Export JSON report if requested
             if (exportJson) {

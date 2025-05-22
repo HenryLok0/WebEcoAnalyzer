@@ -243,8 +243,11 @@ async function analyzeWebsite(
             }
         }
 
-        // Total score
+        const barLength = 40;
+        const filledLength = Math.round((totalScore / 100) * barLength);
+        const bar = '▓'.repeat(filledLength) + '▒'.repeat(barLength - filledLength);
         console.log(`\n===== TOTAL WEBSITE SCORE: ${totalScore}/100 =====`);
+        console.log(`[${bar}]`);
         console.log('\n===== Analysis Complete =====');
 
         // Export JSON report if requested
