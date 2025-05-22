@@ -193,8 +193,8 @@ async function analyzeWebsite(
             console.log('No image resources detected.');
         } else {
             displayResourceResults(imageResourceResults);
+            console.log(`Image Resource Score: ${imgScore}/100`);
         }
-        console.log(`Image Resource Score: ${imgScore}/100`);
 
         // Performance metrics section
         console.log('\n[Performance Metrics]');
