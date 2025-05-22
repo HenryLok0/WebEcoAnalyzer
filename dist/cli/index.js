@@ -139,9 +139,17 @@ function analyzeWebsite(targetUrl, exportJson = false, useLogScale = false, comm
             // Prioritize recommendations by impact
             consolidatedRecommendations.sort((a, b) => impactRank(a.impact) - impactRank(b.impact));
             // Calculate total score (average)
-            const scores = [staticScore, jsScore, cssScore, imgScore, perfScore, energyScore];
+            const scores = [
+                staticScore,
+                jsScore,
+                cssScore,
+                perfScore,
+                energyScore
+            ];
+            if (imageResourceResults.length > 0) {
+                scores.push(imgScore);
+            }
             const totalScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-            // Resource size breakdown for visualization (修正：傳入 performanceMetrics)
             const resourceBreakdown = getResourceSizeBreakdown(jsResourceResults, cssResourceResults, imageResourceResults, performanceMetrics);
             // Validation warnings
             const warnings = validateMetrics(performanceMetrics, imageResourceResults);
