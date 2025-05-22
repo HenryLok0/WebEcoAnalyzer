@@ -169,7 +169,6 @@ async function analyzeWebsite(targetUrl: string): Promise<void> {
                     console.log(`${index + 1}. ${rec.message} (Impact Level: ${rec.impact})`);
                 });
         }
-        console.log(`Recommendations Score: ${recScore}/100`);
 
         // Total score
         console.log(`\n===== TOTAL WEBSITE SCORE: ${totalScore}/100 =====`);
