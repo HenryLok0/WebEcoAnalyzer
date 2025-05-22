@@ -197,8 +197,8 @@ function analyzeWebsite(targetUrl, exportJson = false, useLogScale = false, comm
             }
             else {
                 displayResourceResults(imageResourceResults);
+                console.log(`Image Resource Score: ${imgScore}/100`);
             }
-            console.log(`Image Resource Score: ${imgScore}/100`);
             // Performance metrics section
             console.log('\n[Performance Metrics]');
             console.log(`• CPU Time: ${performanceMetrics.cpuTime} ms`);
