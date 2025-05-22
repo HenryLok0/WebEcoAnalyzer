@@ -21,7 +21,7 @@ class PerformanceCollector {
                 memoryUsage: 50000000,
                 networkRequests: 15,
                 imageSize: 1500,
-                jsExecutionTime: 250 // Sample value for testing
+                jsExecutionTime: 250
             };
             // Simulate asynchronous operation
             return new Promise((resolve) => {

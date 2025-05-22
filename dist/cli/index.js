@@ -8,6 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = void 0;
 const staticAnalyzer_1 = require("../analyzer/staticAnalyzer");
@@ -17,6 +20,7 @@ const recommendations_1 = require("../analyzer/recommendations");
 const JavaScriptResourceAnalyzer_1 = require("../analyzer/JavaScriptResourceAnalyzer");
 const CssResourceAnalyzer_1 = require("../analyzer/CssResourceAnalyzer");
 const ImageResourceAnalyzer_1 = require("../analyzer/ImageResourceAnalyzer");
+const node_fetch_1 = __importDefault(require("node-fetch"));
 function run(args = process.argv.slice(2)) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -198,42 +202,8 @@ function generateResourceRecommendations(resourceResults) {
 function fetchWebPageContent(url) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(`Simulating webpage content fetch: ${url}`);
-            return `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>Sample Page</title>
-                    <script>
-                        setInterval(function() {
-                            console.log('Test');
-                        }, 100);
-                        
-                        setTimeout(function() {
-                            console.log('Delayed action');
-                        }, 5000);
-                        
-                        for(let i = 0; i < 1000; i++) {
-                            // Inefficient loop
-                        }
-                    </script>
-                    <style>
-                        body {
-                            animation: fadeIn 2s;
-                        }
-                        @keyframes fadeIn {
-                            from { opacity: 0; }
-                            to { opacity: 1; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>Sample Page for Testing</h1>
-                    <img src="example.jpg" alt="Example Image">
-                    <img src="large-image.png" alt="Large Image">
-                </body>
-            </html>
-        `;
+            const response = yield (0, node_fetch_1.default)(url);
+            return yield response.text();
         }
         catch (error) {
             console.error('Error occurred while fetching webpage content:', error);

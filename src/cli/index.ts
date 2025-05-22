@@ -6,6 +6,7 @@ import { JavaScriptResourceAnalyzer } from '../analyzer/JavaScriptResourceAnalyz
 import { CssResourceAnalyzer } from '../analyzer/CssResourceAnalyzer';
 import { ImageResourceAnalyzer } from '../analyzer/ImageResourceAnalyzer';
 import { PerformanceMetrics, Recommendation, ResourceAnalysisResult } from '../types';
+import fetch from 'node-fetch';
 
 export async function run(args: string[] = process.argv.slice(2)): Promise<number> {
     try {
@@ -201,42 +202,8 @@ function generateResourceRecommendations(resourceResults: ResourceAnalysisResult
 
 async function fetchWebPageContent(url: string): Promise<string> {
     try {
-        console.log(`Simulating webpage content fetch: ${url}`);
-        return `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>Sample Page</title>
-                    <script>
-                        setInterval(function() {
-                            console.log('Test');
-                        }, 100);
-                        
-                        setTimeout(function() {
-                            console.log('Delayed action');
-                        }, 5000);
-                        
-                        for(let i = 0; i < 1000; i++) {
-                            // Inefficient loop
-                        }
-                    </script>
-                    <style>
-                        body {
-                            animation: fadeIn 2s;
-                        }
-                        @keyframes fadeIn {
-                            from { opacity: 0; }
-                            to { opacity: 1; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>Sample Page for Testing</h1>
-                    <img src="example.jpg" alt="Example Image">
-                    <img src="large-image.png" alt="Large Image">
-                </body>
-            </html>
-        `;
+        const response = await fetch(url);
+        return await response.text();
     } catch (error) {
         console.error('Error occurred while fetching webpage content:', error);
         return '';
