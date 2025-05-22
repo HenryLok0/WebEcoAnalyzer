@@ -137,3 +137,6 @@ export class JavaScriptResourceAnalyzer {
         return 'high';
     }
 }
+
+
+

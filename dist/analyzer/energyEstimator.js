@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EnergyEstimator = void 0;
+exports.estimateCarbonFootprint = exports.EnergyEstimator = void 0;
 class EnergyEstimator {
     estimateEnergyConsumption(metrics) {
         // Example model, adjust coefficients as needed
@@ -31,3 +31,8 @@ class EnergyEstimator {
     }
 }
 exports.EnergyEstimator = EnergyEstimator;
+function estimateCarbonFootprint(wh, carbonIntensity = 0.475) {
+    // wh: watt-hour, carbonIntensity: kgCO2/kWh
+    return wh * carbonIntensity * 1000; // gCO2
+}
+exports.estimateCarbonFootprint = estimateCarbonFootprint;

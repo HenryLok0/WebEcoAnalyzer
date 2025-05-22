@@ -12,14 +12,14 @@ export interface Recommendation {
     suggestedAction?: string;
 }
 
-export interface ResourceAnalysisResult {
-    resourceType: 'javascript' | 'css' | 'image' | 'font' | 'video' | 'other';
-    category: 'inline' | 'external' | 'third-party';
+export type ResourceAnalysisResult = {
+    resourceType: 'css' | 'javascript' | 'image';
+    category: 'inline' | 'external' | 'third-party' | 'optimization'; // ←加上 'optimization'
     count: number;
     totalSize: number;
     impact: 'low' | 'medium' | 'high';
     recommendation: string;
-}
+};
 
 // 新增 EnergyBreakdown 型別
 export interface EnergyBreakdown {

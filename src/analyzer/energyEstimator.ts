@@ -31,3 +31,8 @@ export class EnergyEstimator {
         return 0;
     }
 }
+
+export function estimateCarbonFootprint(wh: number, carbonIntensity = 0.475): number {
+    // wh: watt-hour, carbonIntensity: kgCO2/kWh
+    return wh * carbonIntensity * 1000; // gCO2
+}

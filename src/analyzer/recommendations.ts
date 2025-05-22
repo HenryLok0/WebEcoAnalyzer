@@ -5,18 +5,18 @@ export class Recommendations {
         const recommendations: Recommendation[] = [];
 
         // Example recommendation for image optimization
-        if (metrics.imageSize && metrics.imageSize > 1000) { 
+        if (metrics.imageSize && metrics.imageSize > 1000) {
             recommendations.push({
-                message: "Consider compressing images to reduce load time and energy consumption.",
-                impact: "high" 
+                message: "It is recommended to use [ImageOptim](https://imageoptim.com/) or [TinyPNG](https://tinypng.com/) to compress images.",
+                impact: "high"
             });
         }
 
         // Example recommendation for JavaScript optimization
-        if (metrics.jsExecutionTime && metrics.jsExecutionTime > 200) { 
+        if (metrics.jsExecutionTime && metrics.jsExecutionTime > 200) {
             recommendations.push({
                 message: "Minimize JavaScript execution time by reducing the number of scripts or optimizing existing code.",
-                impact: "medium" 
+                impact: "medium"
             });
         }
 

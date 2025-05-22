@@ -7,7 +7,7 @@ class Recommendations {
         // Example recommendation for image optimization
         if (metrics.imageSize && metrics.imageSize > 1000) {
             recommendations.push({
-                message: "Consider compressing images to reduce load time and energy consumption.",
+                message: "It is recommended to use [ImageOptim](https://imageoptim.com/) or [TinyPNG](https://tinypng.com/) to compress images.",
                 impact: "high"
             });
         }

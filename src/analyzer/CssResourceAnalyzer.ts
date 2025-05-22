@@ -58,7 +58,7 @@ export class CssResourceAnalyzer {
                     resourceType: 'css',
                     category: 'third-party',
                     count: thirdPartyStylesheets.length,
-                    totalSize: 0, // Actual size needs to be fetched separately
+                    totalSize: 0,
                     impact: this.determineImpact(thirdPartyStylesheets.length),
                     recommendation: thirdPartyStylesheets.length > 3
                         ? 'Reduce the number of third-party stylesheets to lower network load'
@@ -69,7 +69,7 @@ export class CssResourceAnalyzer {
                 resourceType: 'css',
                 category: 'external',
                 count: externalStylesheets.length,
-                totalSize: 0, // Actual size needs to be fetched separately
+                totalSize: 0,
                 impact: this.determineImpact(externalStylesheets.length),
                 recommendation: externalStylesheets.length > 4
                     ? 'It is recommended to merge external stylesheets to reduce HTTP requests'
@@ -110,6 +110,98 @@ export class CssResourceAnalyzer {
             });
         }
 
+        // --- Optimization Recommendations ---
+
+        // Recommend minifying CSS
+        if (inlineStyles.length + externalStylesheets.length > 0) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'medium',
+                recommendation: 'Minify CSS using tools like cssnano or CleanCSS to reduce file size and improve load speed.'
+            });
+        }
+
+        // Recommend using critical CSS
+        if (externalStylesheets.length > 2) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'medium',
+                recommendation: 'Consider extracting and inlining critical CSS for above-the-fold content to speed up first paint.'
+            });
+        }
+
+        // Recommend using CSS variables
+        const cssVarRegex = /--[\w-]+\s*:/g;
+        const cssVarMatches = pageContent.match(cssVarRegex) || [];
+        if (cssVarMatches.length === 0 && (inlineStyles.length > 0 || externalStylesheets.length > 0)) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'low',
+                recommendation: 'Use CSS custom properties (variables) for colors and spacing to improve maintainability and reduce duplication.'
+            });
+        }
+
+        // Recommend reducing @import usage
+        const cssImportRegex = /@import\s+url\(/gi;
+        const cssImportMatches = pageContent.match(cssImportRegex) || [];
+        if (cssImportMatches.length > 0) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: cssImportMatches.length,
+                totalSize: 0,
+                impact: cssImportMatches.length > 2 ? 'high' : 'medium',
+                recommendation: 'Avoid excessive use of @import in CSS. Prefer combining stylesheets to reduce blocking requests.'
+            });
+        }
+
+        // Recommend using modern CSS features
+        if (externalStylesheets.length > 0 || inlineStyles.length > 0) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'low',
+                recommendation: 'Consider using modern CSS features like flexbox and grid for layout to reduce reliance on heavy frameworks.'
+            });
+        }
+
+        // Recommend reducing unused CSS
+        if (inlineStyles.length + externalStylesheets.length > 0) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'medium',
+                recommendation: 'Remove unused CSS with tools like PurgeCSS or UnCSS to reduce CSS size and improve efficiency.'
+            });
+        }
+
+        // Recommend using font-display: swap
+        const fontFaceRegex = /@font-face\s*{[^}]*}/gi;
+        const fontFaceMatches = pageContent.match(fontFaceRegex) || [];
+        if (fontFaceMatches.length > 0 && !/font-display\s*:\s*swap/.test(pageContent)) {
+            analysisResults.push({
+                resourceType: 'css',
+                category: 'optimization',
+                count: 1,
+                totalSize: 0,
+                impact: 'low',
+                recommendation: 'Add `font-display: swap` to @font-face rules to improve text rendering speed and user experience.'
+            });
+        }
+
         return analysisResults;
     }
 
@@ -141,6 +233,12 @@ export class CssResourceAnalyzer {
             // Animation penalty
             if (result.recommendation && result.recommendation.includes('animations')) {
                 score -= 5;
+            }
+            // Optimization recommendations penalty
+            if (result.category === 'optimization') {
+                if (result.impact === 'high') score -= 10;
+                if (result.impact === 'medium') score -= 5;
+                if (result.impact === 'low') score -= 2;
             }
         }
 
