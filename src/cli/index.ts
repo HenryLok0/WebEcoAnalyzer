@@ -359,14 +359,24 @@ function printAsciiBarChart(breakdown: { [key: string]: number }, useLogScale: b
 }
 
 function getChartJsConfig(breakdown: { [key: string]: number }): string {
+    const colorPalette = [
+        '#36A2EB', // blue
+        '#FF6384', // red
+        '#FFCE56', // yellow
+        '#4BC0C0', // teal
+        '#9966FF', // purple
+        '#FF9F40', // orange
+        '#C9CBCF'  // gray
+    ];
+    const labels = Object.keys(breakdown);
     return JSON.stringify({
         type: 'bar',
         data: {
-            labels: Object.keys(breakdown),
+            labels,
             datasets: [{
                 label: 'Resource Size (KB)',
                 data: Object.values(breakdown),
-                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56']
+                backgroundColor: labels.map((_, i) => colorPalette[i % colorPalette.length])
             }]
         },
         options: {

@@ -345,14 +345,24 @@ function printAsciiBarChart(breakdown, useLogScale = false) {
     });
 }
 function getChartJsConfig(breakdown) {
+    const colorPalette = [
+        '#36A2EB',
+        '#FF6384',
+        '#FFCE56',
+        '#4BC0C0',
+        '#9966FF',
+        '#FF9F40',
+        '#C9CBCF' // gray
+    ];
+    const labels = Object.keys(breakdown);
     return JSON.stringify({
         type: 'bar',
         data: {
-            labels: Object.keys(breakdown),
+            labels,
             datasets: [{
                     label: 'Resource Size (KB)',
                     data: Object.values(breakdown),
-                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56']
+                    backgroundColor: labels.map((_, i) => colorPalette[i % colorPalette.length])
                 }]
         },
         options: {
