@@ -96,7 +96,7 @@ Scoring and Metrics:
 ## Example Output
 
 ```
-Analyzing energy efficiency of https://www.google.com/...
+Analyzing energy efficiency of https://www.wikipedia.org/...
 Fetching webpage content...
 Performing static code analysis...
 Analyzing JavaScript resources...
@@ -106,33 +106,44 @@ Collecting performance metrics...
 Estimating energy consumption...
 Generating optimization recommendations...
 
+Analyzing energy efficiency of https://www.wikipedia.org/...
+Fetching webpage content...
+Performing static code analysis...
+Analyzing JavaScript resources...
+Analyzing CSS resources...
+Analyzing image resources...
+[ImageAnalyzer] https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png size: 15829
+Collecting performance metrics...
+Estimating energy consumption...
+Generating optimization recommendations...
+
 ===== Analysis Results =====
-Website: https://www.google.com/
+Website: https://www.wikipedia.org/
 ----------------------------
 
 [Static Code Analysis]
-1. Using long-duration setTimeout (may cause memory leak), time interval: 0ms
+1. Using long-duration setTimeout (may cause memory leak), time interval: 1000ms
 2. Found unoptimized images (missing size attributes), found 1 instances
-3. Using inline styles (increases HTML size), found 9 instances
-Static Code Analysis Score: 80/100
+3. Too many CSS animations or transitions (7 instances), may increase CPU load
+Static Code Analysis Score: 75/100
 
 [JavaScript Resource Analysis]
-1. inline javascript: 6 (Impact: medium)
-   Total size: 11.53 KB
-   Recommendation: Consider combining inline scripts into a single external file to improve caching
-JavaScript Resource Score: 90/100
+1. inline javascript: 2 (Impact: low)
+   Total size: 1.64 KB
+2. external javascript: 2 (Impact: low)
+JavaScript Resource Score: 100/100
 
 [CSS Resource Analysis]
 1. inline css: 3 (Impact: medium)
-   Total size: 1.76 KB
+   Total size: 40.77 KB
    Recommendation: It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency
-2. inline css: 9 (Impact: medium)
-   Total size: 0.24 KB
-   Recommendation: Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead.
-CSS Resource Score: 90/100
+2. inline css: 7 (Impact: medium)
+   Recommendation: Too many CSS animations will increase CPU load and power consumption. It is recommended to reduce or optimize animations.
+CSS Resource Score: 85/100
 
 [Image Resource Analysis]
 1. external image: 1 (Impact: low)
+   Total size: 15.46 KB
 2. external image: 1 (Impact: medium)
    Recommendation: Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG.
 Image Resource Score: 90/100
@@ -154,9 +165,9 @@ Scoring: 100 (<=1.5Wh), 80 (<=2Wh), 60 (<=3Wh), 40 (<=4Wh), 20 (<=5Wh), 0 (>5Wh)
 
 Resource Size Breakdown (KB):
 {
-  "JavaScript": 11.53,
-  "CSS": 1.99,
-  "Images": 1464.84
+  "JavaScript": 1.64,
+  "CSS": 40.77,
+  "Images": 15.46
 }
 
 Chart.js Config:
@@ -172,9 +183,9 @@ Chart.js Config:
       {
         "label": "Resource Size (KB)",
         "data": [
-          11.53,
-          1.99,
-          1464.84
+          1.64,
+          40.77,
+          15.46
         ],
         "backgroundColor": [
           "#36A2EB",
@@ -200,17 +211,16 @@ Chart.js Config:
     }
   }
 }
-JavaScript | ████████████████████████████████████████ 11.53 KB
-CSS        | ███████ 1.99 KB
-Images     | ██████████████████████████████████████████████████████████████████████ 1500 KB
+JavaScript | ██ 1.64 KB
+CSS        | ████████████████████████████████████████ 40.77 KB
+Images     | ███████████████ 15.46 KB
 
 [Optimization Recommendations]
 1. Consider compressing images to reduce load time and energy consumption. (Impact: high)
 2. Minimize JavaScript execution time by reducing the number of scripts or optimizing existing code. (Impact: medium)
-3. [JAVASCRIPT] Consider combining inline scripts into a single external file to improve caching (Impact: medium)
-4. [CSS] It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency (Impact: medium)
-5. [CSS] Too many inline styles will bloat the HTML and make it hard to maintain. It is recommended to use CSS classes instead. (Impact: medium)
-6. [IMAGE] Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG. (Impact: medium)
+3. [CSS] It is recommended to merge multiple inline styles into a single external stylesheet to improve caching efficiency (Impact: medium)
+4. [CSS] Too many CSS animations will increase CPU load and power consumption. It is recommended to reduce or optimize animations. (Impact: medium)
+5. [IMAGE] Consider using WebP or AVIF format for images which can reduce file size by up to 30% compared to JPEG/PNG. (Impact: medium)
 
 ===== TOTAL WEBSITE SCORE: 92/100 =====
 

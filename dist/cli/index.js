@@ -113,7 +113,7 @@ function analyzeWebsite(targetUrl, exportJson = false, useLogScale = false, comm
             const cssScore = cssResourceAnalyzer.calculateScore(cssResourceResults);
             // Image resources
             console.log("Analyzing image resources...");
-            const imageResourceResults = imageResourceAnalyzer.analyze(pageContent);
+            const imageResourceResults = yield imageResourceAnalyzer.analyze(pageContent, targetUrl);
             const imgScore = imageResourceAnalyzer.calculateScore(imageResourceResults);
             // Performance metrics
             console.log("Collecting performance metrics...");
@@ -315,14 +315,10 @@ function consolidateRecommendations(recommendations) {
 function impactRank(impact) {
     return impact === 'high' ? 0 : impact === 'medium' ? 1 : 2;
 }
-// 修正版：多傳一個 performanceMetrics 參數，並補齊圖片大小
 function getResourceSizeBreakdown(jsResults, cssResults, imgResults, performanceMetrics) {
     const jsSize = jsResults.reduce((sum, r) => sum + r.totalSize, 0);
     const cssSize = cssResults.reduce((sum, r) => sum + r.totalSize, 0);
-    let imgSize = imgResults.reduce((sum, r) => sum + r.totalSize, 0);
-    if (imgSize === 0 && performanceMetrics && performanceMetrics.imageSize) {
-        imgSize = performanceMetrics.imageSize * 1024; // KB 轉 bytes
-    }
+    const imgSize = imgResults.reduce((sum, r) => sum + r.totalSize, 0);
     return {
         JavaScript: +(jsSize / 1024).toFixed(2),
         CSS: +(cssSize / 1024).toFixed(2),

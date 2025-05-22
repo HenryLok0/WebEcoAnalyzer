@@ -96,7 +96,7 @@ async function analyzeWebsite(
 
         // Image resources
         console.log("Analyzing image resources...");
-        const imageResourceResults = imageResourceAnalyzer.analyze(pageContent);
+        const imageResourceResults = await imageResourceAnalyzer.analyze(pageContent, targetUrl);
         const imgScore = imageResourceAnalyzer.calculateScore(imageResourceResults);
 
         // Performance metrics
@@ -321,7 +321,6 @@ function impactRank(impact: 'low' | 'medium' | 'high'): number {
     return impact === 'high' ? 0 : impact === 'medium' ? 1 : 2;
 }
 
-// 修正版：多傳一個 performanceMetrics 參數，並補齊圖片大小
 function getResourceSizeBreakdown(
     jsResults: ResourceAnalysisResult[],
     cssResults: ResourceAnalysisResult[],
@@ -330,10 +329,8 @@ function getResourceSizeBreakdown(
 ): { [key: string]: number } {
     const jsSize = jsResults.reduce((sum, r) => sum + r.totalSize, 0);
     const cssSize = cssResults.reduce((sum, r) => sum + r.totalSize, 0);
-    let imgSize = imgResults.reduce((sum, r) => sum + r.totalSize, 0);
-    if (imgSize === 0 && performanceMetrics && performanceMetrics.imageSize) {
-        imgSize = performanceMetrics.imageSize * 1024; // KB 轉 bytes
-    }
+    const imgSize = imgResults.reduce((sum, r) => sum + r.totalSize, 0);
+
     return {
         JavaScript: +(jsSize / 1024).toFixed(2),
         CSS: +(cssSize / 1024).toFixed(2),
