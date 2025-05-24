@@ -7,7 +7,7 @@
 [![Repo Size](https://img.shields.io/github/repo-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 [![Code Size](https://img.shields.io/github/languages/code-size/HenryLok0/WebEcoAnalyzer?style=flat-square&logo=github)](https://github.com/HenryLok0/WebEcoAnalyzer)
 
-WebEcoAnalyzer 是一款開源 CLI 工具，協助網頁開發者分析並優化網站的能源效率，提供具體可行的建議，幫助降低網頁應用的能源足跡。
+**WebEcoAnalyzer** 是一款開源 CLI 工具，協助網頁開發者分析並優化網站的能源效率，提供具體可行的建議，幫助降低網頁應用的能源足跡。
 
 ---
 
