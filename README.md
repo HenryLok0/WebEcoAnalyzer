@@ -1,6 +1,6 @@
 # WebEcoAnalyzer
 
-[繁體中文說明](./TC.READMEmd)
+[繁體中文說明](./README.Tc.md)
 
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-green?logo=node.js)](https://nodejs.org/)
 [![MIT License](https://img.shields.io/github/license/HenryLok0/WebEcoAnalyzer?color=blue)](https://github.com/HenryLok0/WebEcoAnalyzer/blob/main/LICENSE)
